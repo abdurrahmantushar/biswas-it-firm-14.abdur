@@ -40,6 +40,11 @@ const SourceRequestForm = ({ productId = "" }) => {
       return;
     }
 
+    if (!formData.sourceType) {
+      toast.error("Please select a source type.");
+      return;
+    }
+
     if (!formData.message.trim()) {
       toast.error("Please enter your request message.");
       return;
@@ -51,6 +56,7 @@ const SourceRequestForm = ({ productId = "" }) => {
       budget: formData.budget
         ? Number(formData.budget)
         : undefined,
+      sourceType: formData.sourceType,
       message: formData.message.trim(),
     };
 

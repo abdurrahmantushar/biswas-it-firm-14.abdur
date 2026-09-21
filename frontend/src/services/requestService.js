@@ -5,8 +5,10 @@ export const createSourceRequest = async (requestData) => {
   return response.data;
 };
 
-export const getMyRequests = async () => {
-  const response = await api.get("/requests/my");
+export const getMyRequests = async (page = 1, limit = 10) => {
+  const response = await api.get(
+    `/requests/my?page=${page}&limit=${limit}`
+  );
   return response.data;
 };
 

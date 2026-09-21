@@ -64,6 +64,47 @@ export const getSources = async (req, res) => {
   }
 };
 
+export const getSourceRequests = async (req, res) => {
+  try {
+    const page = Math.max(Number(req.query.page) || 1, 1);
+    const limit = Math.min(
+      Math.max(Number(req.query.limit) || 3, 1),
+      50
+    );
+
+    const skip = (page - 1) * limit;
+
+    const [requests, totalRequests] = await Promise.all([
+      Request.find()
+        .populate("buyer", "name email")
+        .populate("product", "name")
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit),
+      Request.countDocuments(),
+    ]);
+
+    const totalPages = Math.ceil(totalRequests / limit);
+
+    res.json({
+      requests,
+      pagination: {
+        currentPage: page,
+        limit,
+        totalRequests,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to get source requests",
+      error: error.message,
+    });
+  }
+};
+
 export const updateSourceVerification = async (req, res) => {
   try {
     const { status } = req.body;

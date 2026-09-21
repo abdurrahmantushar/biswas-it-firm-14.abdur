@@ -1,6 +1,13 @@
 import { NavLink } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Sidebar = () => {
+  const { user } = useAuth();
+
+  if (user?.role !== "buyer") {
+    return null;
+  }
+
   const links = [
     {
       label: "Dashboard",

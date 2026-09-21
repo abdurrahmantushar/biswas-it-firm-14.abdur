@@ -1,6 +1,11 @@
 
 import api from "./api";
 
+export const createOrderFromRequest = async (orderData) => {
+  const response = await api.post("/fulfillment/orders", orderData);
+  return response.data;
+};
+
 export const getAdminStats = async () => {
   const response = await api.get("/admin/stats");
   return response.data;
@@ -11,8 +16,10 @@ export const getUsers = async () => {
   return response.data;
 };
 
-export const getSourceRequests = async () => {
-  const response = await api.get("/admin/requests");
+export const getSourceRequests = async (page = 1, limit = 3) => {
+  const response = await api.get(
+    `/admin/requests?page=${page}&limit=${limit}`
+  );
   return response.data;
 };
 

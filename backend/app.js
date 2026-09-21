@@ -9,6 +9,8 @@ import productRoutes from "./routes/productRoutes.js";
 import requestRoutes from "./routes/requestRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import fulfillmentRoutes from "./routes/fulfillmentRoutes.js";
+
 
 import { ConnectDB } from './config/db.js';
 import authMiddleware from './middleware/authMiddleware.js';
@@ -50,5 +52,6 @@ app.use("/admin", adminRoutes);
 app.use("/products", productRoutes);
 app.use("/requests", requestRoutes);
 app.use("/categories", categoryRoutes);
+app.use("/fulfillment", fulfillmentRoutes);
 
 ConnectDB()

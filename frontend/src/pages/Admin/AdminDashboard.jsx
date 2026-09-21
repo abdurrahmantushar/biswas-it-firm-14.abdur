@@ -1,9 +1,6 @@
-
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getAdminStats } from "../../services/adminService";
-import AdminSidebar from "../../components/admin/AdminSidebar";
-import AdminHeader from "../../components/admin/AdminHeader";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -60,52 +57,43 @@ const AdminDashboard = () => {
     },
   ];
 
-return (
-  <main className="min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-8">
-    <div className="mx-auto max-w-7xl">
-      <div className="grid gap-6 lg:grid-cols-[240px_1fr]">
-        <AdminSidebar />
+  return (
+    <main>
+      {loading ? (
+        <p className="text-slate-500">
+          Loading statistics...
+        </p>
+      ) : (
+        <div className="grid gap-6 sm:grid-cols-2">
+          {statCards.map((stat) => (
+            <div
+              key={stat.title}
+              className="rounded-xl bg-white p-6 shadow-sm"
+            >
+              <p className="text-sm text-slate-500">
+                {stat.title}
+              </p>
 
-        <div>
-          <AdminHeader/>
-          {loading ? (
-            <p className="text-slate-500">
-              Loading statistics...
-            </p>
-          ) : (
-            <div className="grid gap-6 sm:grid-cols-2">
-              {statCards.map((stat) => (
-                <div
-                  key={stat.title}
-                  className="rounded-xl bg-white p-6 shadow-sm"
-                >
-                  <p className="text-sm text-slate-500">
-                    {stat.title}
-                  </p>
-
-                  <p className="mt-2 text-3xl font-bold text-slate-900">
-                    {stat.value}
-                  </p>
-                </div>
-              ))}
+              <p className="mt-2 text-3xl font-bold text-slate-900">
+                {stat.value}
+              </p>
             </div>
-          )}
-
-          <div className="mt-8 rounded-xl bg-white p-6 shadow-sm">
-            <h2 className="text-xl font-semibold text-slate-900">
-              Admin Overview
-            </h2>
-
-            <p className="mt-2 text-slate-500">
-              Use the admin management sections to review users,
-              products and source requests.
-            </p>
-          </div>
+          ))}
         </div>
+      )}
+
+      <div className="mt-8 rounded-xl bg-white p-6 shadow-sm">
+        <h2 className="text-xl font-semibold text-slate-900">
+          Admin Overview
+        </h2>
+
+        <p className="mt-2 text-slate-500">
+          Use the admin management sections to review users,
+          products and source requests.
+        </p>
       </div>
-    </div>
-  </main>
-);
+    </main>
+  );
 };
 
 export default AdminDashboard;

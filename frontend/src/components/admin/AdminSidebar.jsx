@@ -21,6 +21,10 @@ const AdminSidebar = () => {
       label: "Requests",
       path: "/admin/requests",
     },
+    {
+    label: "Fulfillment",
+    path: "/admin/fulfillment",
+  },
   ];
 
   return (

@@ -20,6 +20,10 @@ import AdminRequests from "../pages/Admin/Request";
 import AdminRoute from "../components/auth/AdminRoute";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import MainLayout from "../components/layout/MainLayout";
+import FulfillmentDashboard from "../pages/Admin/FulfillmentDashboard";
+import FulfillmentOrders from "../pages/Admin/FulfillmentOrders";
+import FulfillmentOrderDetails from "../pages/Admin/FulfillmentOrderDetails";
+import AdminLayout from "../components/layout/AdminLayout";
 
 export const router = createBrowserRouter([
   {
@@ -91,7 +95,7 @@ export const router = createBrowserRouter([
         element: <AdminRoute />,
         children: [
           {
-            element: <DashboardLayout />,
+            element: <AdminLayout/>,
             children: [
               {
                 path: "/admin",
@@ -108,6 +112,18 @@ export const router = createBrowserRouter([
               {
                 path: "/admin/requests",
                 element: <AdminRequests />,
+              },
+              {
+                path: "/admin/fulfillment",
+                element: <FulfillmentDashboard />,
+              },  
+              {
+                path: "/admin/fulfillment/orders",
+                element: <FulfillmentOrders />,
+              },  
+              {
+                path: "/admin/fulfillment/orders/:id",
+                element: <FulfillmentOrderDetails />,
               },
             ],
           },
