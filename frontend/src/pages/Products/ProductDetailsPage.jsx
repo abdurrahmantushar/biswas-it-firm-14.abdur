@@ -1,4 +1,4 @@
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "../../hooks/useProducts";
 
 import Loader from "../../components/common/Loader";
@@ -8,9 +8,8 @@ import ProductDetails from "../../components/products/ProductDetails";
 import RecommendedProducts from "../../components/discovery/RecommendedProducts";
 import RelatedProducts from "../../components/discovery/RelatedProducts";
 
-
 const ProductDetailsPage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const {
@@ -61,12 +60,16 @@ const ProductDetailsPage = () => {
         >
           ← Back
         </button>
-        
+
         <ProductDetails product={product} />
 
-        <RelatedProducts productId={product.id} />
+        <div className="min-h-[600px]">
+          <RelatedProducts
+            productId={product._id || product.id}
+          />
 
-        <RecommendedProducts />
+          <RecommendedProducts />
+        </div>
       </div>
     </main>
   );

@@ -1,7 +1,20 @@
 import { Link } from "react-router-dom";
 import SaveProductButton from "./SaveProductButton";
 
-const ProductCard = ({ product }) => {
+const getOptimizedImage = (url) => {
+  if (!url) return "";
+
+  if (!url.includes("res.cloudinary.com")) {
+    return url;
+  }
+
+  return url.replace(
+    "/image/upload/",
+    "/image/upload/f_auto,q_auto,w_400/"
+  );
+};
+
+const ProductCard = ({ product, priority = false }) => {
   const productId = product?._id || product?.id;
 
   return (
@@ -10,12 +23,14 @@ const ProductCard = ({ product }) => {
         <div className="aspect-[4/3] overflow-hidden bg-slate-100">
           {product?.image ? (
             <img
-              src={product.image}
+              src={getOptimizedImage(product.image)}
               alt={product.name || "Product"}
+              loading={priority ? "eager" : "lazy"}
+              fetchPriority={priority ? "high" : "auto"}
               className="h-full w-full object-cover transition duration-300 hover:scale-105"
             />
           ) : (
-            <div className="flex h-full items-center justify-center text-sm text-slate-400">
+            <div className="flex h-full items-center justify-center text-sm text-slate-600">
               No Image
             </div>
           )}

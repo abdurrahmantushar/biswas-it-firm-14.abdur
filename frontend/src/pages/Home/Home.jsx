@@ -6,8 +6,6 @@ import {
   FiLayers,
   FiPackage,
   FiShield,
-  FiTrendingUp,
-  FiUsers,
 } from "react-icons/fi";
 
 const Home = () => {

@@ -7,8 +7,6 @@ const Navbar = () => {
   const { sidebarOpen, setSidebarOpen } = useApp();
   const { isAuthenticated, user, logout } = useAuth();
 
-  console.log("NAVBAR USER:", user);
-  console.log("NAVBAR ROLE:", user?.role);
 
   const handleLogout = () => {
     logout();

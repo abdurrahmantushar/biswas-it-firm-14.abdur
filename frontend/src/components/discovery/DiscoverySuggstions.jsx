@@ -7,6 +7,20 @@ import EmptyState from "../common/EmptyState";
 import { Link } from "react-router-dom";
 import PopularProducts from "./PopularProducts";
 
+
+const getOptimizedImage = (url) => {
+  if (!url) return "";
+
+  if (!url.includes("res.cloudinary.com")) {
+    return url;
+  }
+
+  return url.replace(
+    "/image/upload/",
+    "/image/upload/f_auto,q_auto,w_400/"
+  );
+};
+
 const SuggestionList = ({ products }) => {
   if (!products.length) {
     return null;
@@ -26,14 +40,14 @@ const SuggestionList = ({ products }) => {
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-slate-100">
               {product.image ? (
                 <img
-                  src={product.image}
+                  src={getOptimizedImage(product.image)}
                   alt={product.name}
                   className="h-full w-full object-cover transition group-hover:scale-105"
                 />
               ) : (
-                <div className="flex h-full items-center justify-center text-[10px] text-slate-400">
-                  No image
-                </div>
+            <div className="flex h-full items-center justify-center text-[10px] text-slate-600">
+              No image
+            </div>
               )}
             </div>
 

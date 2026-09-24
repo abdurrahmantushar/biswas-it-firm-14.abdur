@@ -1,29 +1,66 @@
 import { createBrowserRouter } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import App from "../App";
-import Login from "../pages/Auth/Login";
-import Register from "../pages/Auth/Register";
 import ProtectedRoute from "../components/auth/ProtectedRoute";
-import Discovery from "../components/discovery/Discovery";
-import Categories from "../components/categories/Categories";
-import CategoryProducts from "../components/categories/CategoryProducts";
-import ProductDetailsPage from "../pages/Products/ProductDetailsPage";
-import CreateRequest from "../components/requests/CreateRequest";
-import Requests from "../pages/Requests/Requests";
-import RequestDetails from "../pages/Requests/RequestDetails";
-import BuyerDashboard from "../pages/Buyer/BuyesDashboard";
-import SavedProducts from "../pages/Buyer/SavedProducts";
-import Profile from "../pages/Buyer/Profile";
-import AdminDashboard from "../pages/Admin/AdminDashboard";
-import Users from "../pages/Admin/Users";
-import Sources from "../pages/Admin/Sources";
-import AdminRequests from "../pages/Admin/Request";
 import AdminRoute from "../components/auth/AdminRoute";
 import DashboardLayout from "../components/layout/DashboardLayout";
 import MainLayout from "../components/layout/MainLayout";
-import FulfillmentDashboard from "../pages/Admin/FulfillmentDashboard";
-import FulfillmentOrders from "../pages/Admin/FulfillmentOrders";
-import FulfillmentOrderDetails from "../pages/Admin/FulfillmentOrderDetails";
 import AdminLayout from "../components/layout/AdminLayout";
+
+const Login = lazy(() => import("../pages/Auth/Login"));
+const Register = lazy(() => import("../pages/Auth/Register"));
+
+const Discovery = lazy(() => import("../components/discovery/Discovery"));
+const Categories = lazy(() => import("../components/categories/Categories"));
+
+const CategoryProducts = lazy(() =>
+  import("../components/categories/CategoryProducts")
+);
+const ProductDetailsPage = lazy(() =>
+  import("../pages/Products/ProductDetailsPage")
+);
+const CreateRequest = lazy(() =>
+  import("../components/requests/CreateRequest")
+);
+const Requests = lazy(() => import("../pages/Requests/Requests"));
+const RequestDetails = lazy(() =>
+  import("../pages/Requests/RequestDetails")
+);
+const BuyerDashboard = lazy(() =>
+  import("../pages/Buyer/BuyesDashboard")
+);
+const SavedProducts = lazy(() =>
+  import("../pages/Buyer/SavedProducts")
+);
+const Profile = lazy(() => import("../pages/Buyer/Profile"));
+const AdminDashboard = lazy(() =>
+  import("../pages/Admin/AdminDashboard")
+);
+const Users = lazy(() => import("../pages/Admin/Users"));
+const Sources = lazy(() => import("../pages/Admin/Sources"));
+const AdminRequests = lazy(() =>
+  import("../pages/Admin/Request")
+);
+const FulfillmentDashboard = lazy(() =>
+  import("../pages/Admin/FulfillmentDashboard")
+);
+const FulfillmentOrders = lazy(() =>
+  import("../pages/Admin/FulfillmentOrders")
+);
+const FulfillmentOrderDetails = lazy(() =>
+  import("../pages/Admin/FulfillmentOrderDetails")
+);
+const Loading = () => (
+  <div className="flex min-h-[50vh] items-center justify-center">
+    <p className="text-sm text-slate-500">Loading...</p>
+  </div>
+);
+
+const withSuspense = (element) => (
+  <Suspense fallback={<Loading />}>
+    {element}
+  </Suspense>
+);
 
 export const router = createBrowserRouter([
   {
@@ -32,30 +69,30 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: withSuspense(<Login />),
   },
   {
     path: "/register",
-    element: <Register />,
+    element: withSuspense(<Register />),
   },
   {
     element: <MainLayout />,
     children: [
       {
         path: "/discovery",
-        element: <Discovery />,
+        element: withSuspense(<Discovery />),
       },
       {
         path: "/categories",
-        element: <Categories />,
+        element: withSuspense(<Categories />),
       },
       {
         path: "/categories/:id",
-        element: <CategoryProducts />,
+        element: withSuspense(<CategoryProducts />),
       },
       {
         path: "/products/:id",
-        element: <ProductDetailsPage />,
+        element: withSuspense(<ProductDetailsPage />),
       },
     ],
   },
@@ -67,27 +104,27 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "/requests/create",
-            element: <CreateRequest />,
+            element: withSuspense(<CreateRequest />),
           },
           {
             path: "/requests",
-            element: <Requests />,
+            element: withSuspense(<Requests />),
           },
           {
             path: "/requests/:id",
-            element: <RequestDetails />,
+            element: withSuspense(<RequestDetails />),
           },
           {
             path: "/buyer",
-            element: <BuyerDashboard />,
+            element: withSuspense(<BuyerDashboard />),
           },
           {
             path: "/buyer/profile",
-            element: <Profile />,
+            element: withSuspense(<Profile />),
           },
           {
             path: "/buyer/saved-products",
-            element: <SavedProducts />,
+            element: withSuspense(<SavedProducts />),
           },
         ],
       },
@@ -95,35 +132,35 @@ export const router = createBrowserRouter([
         element: <AdminRoute />,
         children: [
           {
-            element: <AdminLayout/>,
+            element: <AdminLayout />,
             children: [
               {
                 path: "/admin",
-                element: <AdminDashboard />,
+                element: withSuspense(<AdminDashboard />),
               },
               {
                 path: "/admin/users",
-                element: <Users />,
+                element: withSuspense(<Users />),
               },
               {
                 path: "/admin/sources",
-                element: <Sources />,
+                element: withSuspense(<Sources />),
               },
               {
                 path: "/admin/requests",
-                element: <AdminRequests />,
+                element: withSuspense(<AdminRequests />),
               },
               {
                 path: "/admin/fulfillment",
-                element: <FulfillmentDashboard />,
-              },  
+                element: withSuspense(<FulfillmentDashboard />),
+              },
               {
                 path: "/admin/fulfillment/orders",
-                element: <FulfillmentOrders />,
-              },  
+                element: withSuspense(<FulfillmentOrders />),
+              },
               {
                 path: "/admin/fulfillment/orders/:id",
-                element: <FulfillmentOrderDetails />,
+                element: withSuspense(<FulfillmentOrderDetails />),
               },
             ],
           },

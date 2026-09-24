@@ -5,6 +5,21 @@ import { usePopularProducts } from "../../hooks/useProducts";
 import Loader from "../common/Loader";
 import EmptyState from "../common/EmptyState";
 
+
+
+const getOptimizedImage = (url) => {
+  if (!url) return "";
+
+  if (!url.includes("res.cloudinary.com")) {
+    return url;
+  }
+
+  return url.replace(
+    "/image/upload/",
+    "/image/upload/f_auto,q_auto,w_400/"
+  );
+};
+
 const PopularProducts = () => {
   const { data, loading, error } = usePopularProducts();
 
@@ -53,14 +68,14 @@ const PopularProducts = () => {
               <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-slate-100">
                 {product.image ? (
                   <img
-                    src={product.image}
+                    src={ getOptimizedImage(product.image)}
                     alt={product.name}
                     className="h-full w-full object-cover transition group-hover:scale-105"
                   />
                 ) : (
-                  <div className="flex h-full items-center justify-center text-xs text-slate-400">
-                    No image
-                  </div>
+                <div className="flex h-full items-center justify-center text-xs text-slate-600">
+                  No image
+                </div>
                 )}
               </div>
 
