@@ -73,6 +73,7 @@ export const createProduct = async (req, res) => {
     });
   }
 };
+
 export const getProducts = async (req, res) => {
   try {
     const {
